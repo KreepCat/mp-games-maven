@@ -57,19 +57,13 @@ public class minesweeper {
     pen.println("""
         Welcome to Minesweeper.
 
-        Command-line arguments:
-
-        * -w width - set up the width of the board (max 15)
-        * -h height - set up the height of the board (max 15)
-        * -m mines - the number of mines in the game
-
         Your game board is going to start empty. Clicking a
-        space will reveal the number of adjacent mines
+        space will reveal the number of adjacent mines.
 
         Your goal is to fill as much of the board as possible
-        without setting off a mine
+        without setting off a mine.
 
-        You will select a value by inputting it's width and height
+        You will select a value by inputting it's associated values
 
 
         After each move, the number of adjacent mines will be revealed
@@ -104,7 +98,7 @@ public class minesweeper {
         setupStorage = Integer.valueOf(eyes.nextLine());
       } catch (Exception e) {
         break;
-      } //try/catch
+      } // try/catch
 
       if (setupStorage > 1 && setupStorage < 14) {
         width = setupStorage;
@@ -122,7 +116,7 @@ public class minesweeper {
         setupStorage = Integer.valueOf(eyes.nextLine());
       } catch (Exception e) {
         break;
-      } //try/catch
+      } // try/catch
       if (setupStorage > 1 && setupStorage < 14) {
         height = setupStorage;
         break;
@@ -134,12 +128,12 @@ public class minesweeper {
 
     pen.println("Please enter the number of mines or accept the default of: " + DEFAULT_MINES
         + " by pressing enter");
-        while (true) {
-          try {
-            setupStorage = Integer.valueOf(eyes.nextLine());
-          } catch (Exception e) {
-            break;
-          } //try/catch
+    while (true) {
+      try {
+        setupStorage = Integer.valueOf(eyes.nextLine());
+      } catch (Exception e) {
+        break;
+      } // try/catch
       if (setupStorage < width * height) {
         mines = setupStorage;
         break;
@@ -149,28 +143,40 @@ public class minesweeper {
     } // while
     pen.println("You have selected: " + mines + " mines.");
 
-    Matrix<Character> shown = new MatrixV0<Character>(width+1, height+1, ' ');
+    Matrix<Character> shown = new MatrixV0<Character>(width + 1, height + 1, ' ');
     setupStorage = 'a';
-    for (int w = 1; w<width+1; w++){
-      shown.set(0, w, ((char)setupStorage));
+    for (int w = 1; w < width + 1; w++) {
+      shown.set(0, w, ((char) setupStorage));
       setupStorage++;
     } // for
     setupStorage = 'z';
-    for (int h = 1; h<height+1; h++){
-      shown.set(h, 0, ((char)setupStorage));
+    for (int h = 1; h < height + 1; h++) {
+      shown.set(h, 0, ((char) setupStorage));
       setupStorage--;
     } // for
-    Matrix<Character> sample = shown.clone();
+    Matrix<Character> actual = shown.clone();
 
-    while (mines>0){
-      int mineRow = (int)(Math.random()*height+1);
-      int mineCol = (int)(Math.random()*width+1);
-      if (sample.get(mineRow, mineCol) == ' '){
-        sample.set(mineRow, mineCol, 'm');
+    while (mines > 0) {
+      int mineRow = (int) (Math.random() * height + 1);
+      int mineCol = (int) (Math.random() * width + 1);
+      if (actual.get(mineRow, mineCol) == ' ') {
+        actual.set(mineRow, mineCol, 'm');
         mines--;
       } // if
     } // while
-    Matrix.print(pen, sample);
+    //Matrix.print(pen, shown);
+
+    minesweeperLogic.numberSetup(actual);
+
+    Matrix.print(pen, actual);
+
+    int uncovered = 0;
+    int needToBeUncovered = (width * height) - mines;
+    while (uncovered != needToBeUncovered) {
+      pen.println("Please input a value of the form col+row, ex: az");
+      String values = eyes.nextLine();
+      pen.println(values.length());
+    } // while
 
 
 
