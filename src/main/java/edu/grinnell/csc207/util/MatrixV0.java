@@ -407,7 +407,7 @@ public class MatrixV0<T> implements Matrix<T> {
   @SuppressWarnings("rawtypes")
   public Matrix clone() {
     MatrixV0<T> cloned = new MatrixV0<T>(this.w, this.h, this.defaultVal);
-    AssociativeArray<Integer, T> clonedValues = this.values;
+    AssociativeArray<Integer, T> clonedValues = this.values.clone();
     cloned.values = clonedValues;
     return cloned;
   } // clone()
