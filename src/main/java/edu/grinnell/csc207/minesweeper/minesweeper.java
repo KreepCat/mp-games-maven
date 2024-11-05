@@ -106,11 +106,11 @@ public class minesweeper {
         break;
       } //try/catch
 
-      if (setupStorage > 1 && setupStorage < 16) {
+      if (setupStorage > 1 && setupStorage < 14) {
         width = setupStorage;
         break;
       } else {
-        pen.println("Please input a valid value (2-15)");
+        pen.println("Please input a valid value (2-13)");
       } // if/else
     } // while
     pen.println("You have selected a width of: " + width);
@@ -123,11 +123,11 @@ public class minesweeper {
       } catch (Exception e) {
         break;
       } //try/catch
-      if (setupStorage > 1 && setupStorage < 16) {
+      if (setupStorage > 1 && setupStorage < 14) {
         height = setupStorage;
         break;
       } else {
-        pen.println("Please input a valid value (2-15)");
+        pen.println("Please input a valid value (2-13)");
       } // if/else
     } // while
     pen.println("You have selected a width of: " + height);
@@ -148,6 +148,29 @@ public class minesweeper {
       } // if/else
     } // while
     pen.println("You have selected: " + mines + " mines.");
+
+    Matrix<Character> shown = new MatrixV0<Character>(width+1, height+1, ' ');
+    setupStorage = 'a';
+    for (int w = 1; w<width+1; w++){
+      shown.set(0, w, ((char)setupStorage));
+      setupStorage++;
+    } // for
+    setupStorage = 'z';
+    for (int h = 1; h<height+1; h++){
+      shown.set(h, 0, ((char)setupStorage));
+      setupStorage--;
+    } // for
+    Matrix<Character> sample = shown.clone();
+
+    while (mines>0){
+      int mineRow = (int)(Math.random()*height+1);
+      int mineCol = (int)(Math.random()*width+1);
+      if (sample.get(mineRow, mineCol) == ' '){
+        sample.set(mineRow, mineCol, 'm');
+        mines--;
+      } // if
+    } // while
+    Matrix.print(pen, sample);
 
 
 
