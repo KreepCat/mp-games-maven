@@ -208,6 +208,7 @@ public class minesweeper {
       int revd = minesweeperLogic.processNumber(actual, shown, row, col);
       if (revd == -1) {
         pen.println("YOU LOST");
+        Matrix.print(pen, shown);
         break;
       } else {
         uncovered += revd;
@@ -215,9 +216,6 @@ public class minesweeper {
       }
 
     } // while
-
-
-
 
     // And we're done
     pen.close();
