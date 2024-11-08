@@ -160,24 +160,25 @@ public class minesweeper {
     setupStorage = '-';
     shown.fillRegion(1, 1, height + 1, width + 1, (char) setupStorage);
 
-    while (mines > 0) {
+    int t_mines = mines;
+    while (t_mines > 0) {
       int mineRow = (int) (Math.random() * height + 1);
       int mineCol = (int) (Math.random() * width + 1);
       if (actual.get(mineRow, mineCol) == ' ') {
         actual.set(mineRow, mineCol, 'm');
-        mines--;
+        t_mines--;
       } // if
     } // while
     //Matrix.print(pen, shown);
 
     minesweeperLogic.numberSetup(actual);
 
-    Matrix.print(pen, actual);
-
     int uncovered = 0;
     int needToBeUncovered = (width * height) - mines;
     while (uncovered != needToBeUncovered) {
+      Matrix.print(pen, shown);
       pen.println("Please input a value of the form col+row, ex: az");
+      pen.println("To flag/unflag a mine, input a value with an f, ex: azf");
       String values = eyes.nextLine();
 
       // Take the input and set to integer values.
@@ -185,16 +186,33 @@ public class minesweeper {
       int row = (-(int) values.charAt(1) + 123);
 
       // Check if the input is valid.
-      if (col < 1 || row < 1 || col > width || row > height || values.length() != 2) {
+      if (col < 1 || row < 1 || col > width || row > height) {
         pen.println("Invalid input");
         continue;
       } // if
 
-      minesweeperLogic.processNumber(actual, shown, row, col);
-      
+      // Check if flag.
+      if (values.length() == 3) {
+        if (values.charAt(2) == 'f') {
+          char loc = shown.get(row, col);
+          if (loc == 'X') {
+            shown.set(row, col, '-');
+          }
+          if (loc == '-') {
+            shown.set(row, col, 'X');
+          }
+          continue;
+        } // if
+      } // if
 
-      Matrix.print(pen, shown);
-
+      int revd = minesweeperLogic.processNumber(actual, shown, row, col);
+      if (revd == -1) {
+        pen.println("YOU LOST");
+        break;
+      } else {
+        uncovered += revd;
+        pen.println(uncovered + "/" + needToBeUncovered);
+      }
 
     } // while
 
