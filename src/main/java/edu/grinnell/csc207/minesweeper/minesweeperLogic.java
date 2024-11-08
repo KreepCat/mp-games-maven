@@ -55,4 +55,40 @@ public class minesweeperLogic {
     } // for
   } // numberSetup
 
+  public static void processNumber(Matrix<Character> actual, Matrix<Character> shown, int row, int col) {
+    // Check if loc already revealed.
+    try {
+      if (shown.get(row, col) != '-') {
+      return;
+    }
+    } catch (Exception e) {
+      return;
+    }
+    
+    
+    // Get the result from the actual Matrix.
+    // Set the result to the same loc in the shown Matrix.
+    char result = actual.get(row, col);;
+    shown.set(row, col, result);
+
+    // If mine
+    if (result == 'm') {
+      // END GAME
+    }
+
+    // If 0
+    if (result == '0') {
+      // Process surrounding spaces
+      for (int x = -1; x < 2; x++) {
+        for (int y = -1; y < 2; y++) {
+          if (x == 0 && y == 0) {
+            continue;
+          }
+          processNumber(actual, shown, row + y, col + x);
+        }
+      }
+    }
+  
+  }
+
 } // minesweeperLogic

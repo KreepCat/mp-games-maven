@@ -80,9 +80,9 @@ public class MatrixV0<T> implements Matrix<T> {
    *
    * @throws IndexOutOfBoundsException If either the row or column is out of reasonable bounds.
    */
-  public T get(int row, int col) {
+  public T get(int row, int col) throws IndexOutOfBoundsException {
     if (col >= this.w || row >= this.h || row < 0 || col < 0) {
-      throw new IndexOutOfBoundsException();
+      throw new IndexOutOfBoundsException(row + " " + col);
     } // if
     try {
       int toFind = (row * this.w) + col;

@@ -4,8 +4,8 @@ A mini-project for Grinnell's CSC-207.
 
 Authors:
 
-* Alexander Pollock and for now no one else
-* Your Name Here
+* Alexander Pollock
+* Leo Goldman
 * Samuel A. Rebelsky (Starter code)
 
 Instructions:

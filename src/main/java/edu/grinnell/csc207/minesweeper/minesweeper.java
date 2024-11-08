@@ -156,6 +156,10 @@ public class minesweeper {
     } // for
     Matrix<Character> actual = shown.clone();
 
+    // Set the shown Matrix to a default full board.
+    setupStorage = '-';
+    shown.fillRegion(1, 1, height + 1, width + 1, (char) setupStorage);
+
     while (mines > 0) {
       int mineRow = (int) (Math.random() * height + 1);
       int mineCol = (int) (Math.random() * width + 1);
@@ -175,8 +179,25 @@ public class minesweeper {
     while (uncovered != needToBeUncovered) {
       pen.println("Please input a value of the form col+row, ex: az");
       String values = eyes.nextLine();
-      pen.println(values.length());
+
+      // Take the input and set to integer values.
+      int col = ((int) values.charAt(0)) - 96; 
+      int row = (-(int) values.charAt(1) + 123);
+
+      // Check if the input is valid.
+      if (col < 1 || row < 1 || col > width || row > height || values.length() != 2) {
+        pen.println("Invalid input");
+        continue;
+      } // if
+
+      minesweeperLogic.processNumber(actual, shown, row, col);
+      
+
+      Matrix.print(pen, shown);
+
+
     } // while
+
 
 
 
