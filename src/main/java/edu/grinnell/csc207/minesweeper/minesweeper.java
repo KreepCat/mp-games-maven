@@ -1,30 +1,22 @@
 package edu.grinnell.csc207.minesweeper;
 
-
-import edu.grinnell.csc207.util.ArrayUtils;
-import edu.grinnell.csc207.util.IOUtils;
 import edu.grinnell.csc207.util.Matrix;
 import edu.grinnell.csc207.util.MatrixV0;
 
 import java.util.Scanner;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-
 /**
- * The code for the UI of Minesweeper. It only handles the UI side of things and has no idea if the
+ * The code for the UI of Minesweeper. It only handles the UI side of things and
+ * has no idea if the
  * player is being a fool
  *
  * @author Alexander Pollock
  * @author Leo Goldman
  */
 
-public class minesweeper {
+public class Minesweeper {
   // +-----------+---------------------------------------------------
   // | Constants |
   // +-----------+
@@ -70,8 +62,6 @@ public class minesweeper {
         or a mine will be set off (if this is the case game over).
         """);
   } // printInstructions(PrintWriter)
-
-
 
   // +------+--------------------------------------------------------
   // | Main |
@@ -160,18 +150,18 @@ public class minesweeper {
     setupStorage = '-';
     shown.fillRegion(1, 1, height + 1, width + 1, (char) setupStorage);
 
-    int t_mines = mines;
-    while (t_mines > 0) {
+    int tMines = mines;
+    while (tMines > 0) {
       int mineRow = (int) (Math.random() * height + 1);
       int mineCol = (int) (Math.random() * width + 1);
       if (actual.get(mineRow, mineCol) == ' ') {
         actual.set(mineRow, mineCol, 'm');
-        t_mines--;
+        tMines--;
       } // if
     } // while
-    //Matrix.print(pen, shown);
+    // Matrix.print(pen, shown);
 
-    minesweeperLogic.numberSetup(actual);
+    MinesweeperLogic.numberSetup(actual);
 
     int uncovered = 0;
     int needToBeUncovered = (width * height) - mines;
@@ -182,7 +172,7 @@ public class minesweeper {
       String values = eyes.nextLine();
 
       // Take the input and set to integer values.
-      int col = ((int) values.charAt(0)) - 96; 
+      int col = ((int) values.charAt(0)) - 96;
       int row = (-(int) values.charAt(1) + 123);
 
       // Check if the input is valid.
@@ -197,15 +187,15 @@ public class minesweeper {
           char loc = shown.get(row, col);
           if (loc == 'X') {
             shown.set(row, col, '-');
-          }
+          } // if
           if (loc == '-') {
             shown.set(row, col, 'X');
-          }
+          } // if
           continue;
         } // if
       } // if
 
-      int revd = minesweeperLogic.processNumber(actual, shown, row, col);
+      int revd = MinesweeperLogic.processNumber(actual, shown, row, col);
       if (revd == -1) {
         pen.println("YOU LOST");
         Matrix.print(pen, shown);
@@ -213,11 +203,12 @@ public class minesweeper {
       } else {
         uncovered += revd;
         pen.println(uncovered + "/" + needToBeUncovered);
-      }
+      } // if/else
 
     } // while
 
     // And we're done
     pen.close();
+    eyes.close();
   } // main(String[])
-}
+} // Minesweeper

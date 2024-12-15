@@ -1,19 +1,6 @@
 package edu.grinnell.csc207.minesweeper;
 
-import edu.grinnell.csc207.util.ArrayUtils;
-import edu.grinnell.csc207.util.IOUtils;
 import edu.grinnell.csc207.util.Matrix;
-import edu.grinnell.csc207.util.MatrixV0;
-
-import java.util.Scanner;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 
 /**
  * The logic behind parts of Minesweeper. This class does much of the heavy
@@ -22,15 +9,13 @@ import java.util.Random;
  * @author Alexander Pollock
  * @author Leo Goldman
  */
-public class minesweeperLogic {
-
+public class MinesweeperLogic {
 
   /**
    * Insert the numbers of adjacent mines into the matrix given. This does not
    * return anything so make sure to input a clone.
-   * 
-   * @param Matrix The matrix to setup with numbers.
    *
+   * @param toModify The matrix to setup with numbers.
    */
   public static void numberSetup(Matrix<Character> toModify) {
     for (int row = 1; row < toModify.height(); row++) {
@@ -55,26 +40,40 @@ public class minesweeperLogic {
     } // for
   } // numberSetup
 
-  public static int processNumber(Matrix<Character> actual, Matrix<Character> shown, int row, int col) {
+  /**
+   * Processes the number.
+   *
+   * @param actual
+   *               The actual board.
+   * @param shown
+   *               The shown board.
+   * @param row
+   *               The row.
+   * @param col
+   *               The column
+   * @return
+   *         The revealed number.
+   */
+  public static int processNumber(Matrix<Character> actual, Matrix<Character> shown, int row,
+      int col) {
     // Check if loc already revealed.
     try {
       if (shown.get(row, col) != '-') {
-      return 0;
-    }
+        return 0;
+      } // if
     } catch (Exception e) {
       return 0;
-    }
-    
-    
+    } // try
+
     // Get the result from the actual Matrix.
     // Set the result to the same loc in the shown Matrix.
-    char result = actual.get(row, col);;
+    char result = actual.get(row, col);
     shown.set(row, col, result);
 
     // If mine
     if (result == 'm') {
       return -1;
-    }
+    } // if
 
     int revealed = 1;
 
@@ -86,12 +85,11 @@ public class minesweeperLogic {
         for (int y = -1; y < 2; y++) {
           if (x == 0 && y == 0) {
             continue;
-          }
+          } // if
           revealed += processNumber(actual, shown, row + y, col + x);
-        }
-      }
-    }
+        } // for
+      } // for
+    } // if
     return revealed;
-  }
-
+  } // processNumber()
 } // minesweeperLogic
