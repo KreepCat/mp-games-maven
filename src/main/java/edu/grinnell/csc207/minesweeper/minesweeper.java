@@ -21,7 +21,7 @@ import java.util.Random;
  * player is being a fool
  *
  * @author Alexander Pollock
- * @author <Insert Yourself>
+ * @author Leo Goldman
  */
 
 public class minesweeper {

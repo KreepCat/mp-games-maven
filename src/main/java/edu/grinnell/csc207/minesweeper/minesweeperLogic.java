@@ -20,7 +20,7 @@ import java.util.Random;
  * lifting. It also checks for properties of the board.
  *
  * @author Alexander Pollock
- * @author <Insert Yourself>
+ * @author Leo Goldman
  */
 public class minesweeperLogic {
 
