@@ -16,4 +16,4 @@ Acknowledgements:
 
 Source:
 
-This code may be found at <URL>. It is based on code found at <https://github.com/Grinnell-CSC207/mp-games-maven>.
+This code may be found at <https://github.com/KreepCat/mp-games-maven>. It is based on code found at <https://github.com/Grinnell-CSC207/mp-games-maven>.
