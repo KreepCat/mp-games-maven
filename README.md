@@ -10,7 +10,7 @@ Authors:
 
 Instructions:
 
-* **Please add instructions for running the game**
+* Run the main method found in the Minesweeper.java file.
 
 Acknowledgements:
 
